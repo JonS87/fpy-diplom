@@ -25,9 +25,12 @@ logger = logging.getLogger(__name__)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('storage.urls')),
-    path('__debug__/', include('debug_toolbar.urls'))
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += [
+        path('__debug__/', include('debug_toolbar.urls')),
+    ]
+
     logger.debug("Статические файлы загружены для отладки.")
