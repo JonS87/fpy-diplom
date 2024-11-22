@@ -59,14 +59,16 @@ nano .env
 #### 2.4.3. Наполните файл .env необходимыми переменными:
 Добавьте следующие строки, заполнив значениями переменные:
 ```plaintext
-   SECRET_KEY=
-   DEBUG=
-   ALLOWED_HOSTS=
-   DB_NAME=
-   DB_USER=
-   DB_PASSWORD=
-   DB_HOST=
-   DB_PORT=
+SECRET_KEY=
+DEBUG=
+ALLOWED_HOSTS=
+CORS_ALLOWED_ORIGINS=
+DB_NAME=
+DB_USER=
+DB_PASSWORD=
+DB_HOST=
+DB_PORT=
+DJANGO_LOG_LEVEL=
 ```
 #### 2.4.4. Сохраните и закройте файл:
 Если вы используете nano, нажмите CTRL + X, затем Y, и затем ENTER для сохранения изменений.
