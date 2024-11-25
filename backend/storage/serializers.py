@@ -6,10 +6,21 @@ from .models import File, CustomUser
 logger = logging.getLogger(__name__)
 
 class UserSerializer(serializers.ModelSerializer):
+    file_count = serializers.SerializerMethodField()
+    total_file_size = serializers.SerializerMethodField()
+
     class Meta:
         model = CustomUser
-        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'is_active', 'is_staff', 'is_superuser', 'storage_path']
+        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name',
+                  'is_active', 'is_staff', 'is_superuser', 'storage_path',
+                  'file_count', 'total_file_size', 'files_management_url']
         extra_kwargs = {'password': {'write_only': True}}
+
+    def get_file_count(self, obj):
+        return obj.get_file_count()
+
+    def get_total_file_size(self, obj):
+        return obj.get_total_file_size()
 
     def validate_username(self, value):
         if not re.match(r'^[a-zA-Z][a-zA-Z0-9]{3,19}$', value):

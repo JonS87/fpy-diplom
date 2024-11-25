@@ -1,19 +1,12 @@
-# from django.shortcuts import render
 import os
 import logging
 from django.utils import timezone
-
-# from django.core.serializers import serialize
 from django.http import FileResponse, Http404, HttpResponse
-# from django.contrib.auth.models import User
-# from django.conf import settings
-# from django.template.defaulttags import comment
 from rest_framework import viewsets, permissions, status
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.decorators import action, api_view
 from rest_framework.exceptions import PermissionDenied
-# from rest_framework import status
 from rest_framework.authtoken.models import Token
 from .models import File, CustomUser
 from .permissions import IsOwnerOrReadOnly
@@ -101,21 +94,6 @@ class FileViewSet(viewsets.ModelViewSet):
         except ValidationError as e:
             logger.error(f"Ошибка при получении файлов: {str(e)}")
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
-    # @action(detail=True, methods=['delete'])
-    # def delete_file(self, request, pk=None):
-    #     try:
-    #         file = self.get_object()
-    #         if file.file_path:
-    #             try:
-    #                 if os.path.isfile(file.file_path.path):
-    #                     os.remove(file.file_path.path)
-    #             except Exception as e:
-    #                 return Response({"detail": f"Ошибка при удалении файла: {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
-    #         file.delete()
-    #         return Response(status=status.HTTP_204_NO_CONTENT)
-    #     except ValidationError as e:
-    #         return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=True, methods=['patch'], permission_classes=[IsOwnerOrReadOnly])
     def rename_file(self, request, pk=None):

@@ -21,6 +21,12 @@ class CustomUser(AbstractUser):
             logger.info("Создана папка для пользователя %s: %s", self.username, self.storage_path)
             self.save(update_fields=['storage_path'])
 
+    def get_file_count(self):
+        return File.objects.filter(user=self).count()
+
+    def get_total_file_size(self):
+        return round(sum(file.size for file in File.objects.filter(user=self)) / 1024 / 1024, 2)
+
 
 class File(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,

@@ -12,10 +12,13 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+# TODO в списке пользователей также должна отображаться информация об их файловых хранилищах: количество и размер файлов, ссылка для перехода к интерфейсу управления этими файлами.
+
 class CustomUserAdmin(admin.ModelAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
-    list_display = ['id', 'username', 'first_name', 'last_name', 'email', 'storage_path', 'is_active', 'is_staff', 'is_superuser']
+    list_display = ['id', 'username', 'first_name', 'last_name', 'email', 'storage_path',
+                    'file_count', 'total_file_size', 'is_active', 'is_staff', 'is_superuser']
     list_filter = ['is_staff', 'is_active', 'is_superuser']
     search_fields = ['username', 'email', 'first_name', 'last_name']
     fieldsets = UserAdmin.fieldsets + (
@@ -24,6 +27,15 @@ class CustomUserAdmin(admin.ModelAdmin):
     add_fieldsets = UserAdmin.add_fieldsets + (
         (None, {'fields': ('storage_path',)}),
     )
+
+    def file_count(self, obj):
+        return obj.get_file_count()
+
+    def total_file_size(self, obj):
+        return obj.get_total_file_size()
+
+    file_count.short_description = 'Количество файлов'
+    total_file_size.short_description = 'Общий размер файлов (Мб)'
 
     def get_urls(self):
         urls = super().get_urls()
