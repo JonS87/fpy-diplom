@@ -36,15 +36,10 @@ pip install -r requirements.txt
 Убедитесь, что PostgreSQL установлен и запущен.
 Создайте базу данных для приложения:
 ```sql
-CREATE DATABASE your_database_name;
-CREATE USER your_username WITH PASSWORD 'your_password';
-ALTER ROLE your_username SET client_encoding TO 'utf8';
-ALTER ROLE your_username SET default_transaction_isolation TO 'read committed';
-ALTER ROLE your_username SET timezone TO 'UTC';
-GRANT ALL PRIVILEGES ON DATABASE your_database_name TO your_username;
+CREATE DATABASE your_database_name WITH ENCODING 'UTF8';
 ```
 ### Примечания
-- Замените `your_database_name`, `your_username` и `your_password` на соответствующие значения.
+- Замените `your_database_name` на соответствующие значения.
 ### 2.4. Создание и настройка файла .env
 #### 2.4.1 Создайте файл .env
 В терминале, в корневом каталоге серверной части проекта, выполните команду:
@@ -89,9 +84,8 @@ python manage.py runserver
 ```
 ### 4. Установка фронтенда
 #### 4.1. Переход в директорию фронтенда
-Перейдите в директорию фронтенда:
+Откройте вторую IDE и перейдите в директорию фронтенда:
 ```bash
-cd ..
 cd frontend
 ```
 #### 4.2. Установка зависимостей
@@ -99,7 +93,23 @@ cd frontend
 ```bash
 npm install
 ```
-#### 4.3. Запуск фронтенда
+### 4.3 Создание и настройка файла .env
+#### 4.3.1 Создайте файл .env
+В терминале, в корневом каталоге серверной части проекта, выполните команду:
+```bash
+touch .env
+```
+#### 4.3.2. Откройте файл .env в текстовом редакторе:
+Например, с помощью nano:
+```bash
+nano .env
+```
+#### 4.3.3. Наполните файл .env необходимыми переменными:
+Добавьте следующие строки, заполнив значениями переменные:
+```plaintext
+VITE_API_URL=http://127.0.0.1:8000/api/
+```
+#### 4.4. Запуск фронтенда
 Запустите приложение React:
 ```bash
 npm run dev
