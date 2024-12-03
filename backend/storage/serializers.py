@@ -13,7 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name',
                   'is_active', 'is_staff', 'is_superuser', 'storage_path',
-                  'file_count', 'total_file_size', 'files_management_url']
+                  'file_count', 'total_file_size']
         extra_kwargs = {'password': {'write_only': True}}
 
     def get_file_count(self, obj):

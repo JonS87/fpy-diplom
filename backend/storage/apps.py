@@ -8,4 +8,4 @@ class StorageConfig(AppConfig):
     def ready(self):
         import storage.signals
 
-    # verbose_name = 'sdfsdfdsf'
+    verbose_name = 'Хранилище'

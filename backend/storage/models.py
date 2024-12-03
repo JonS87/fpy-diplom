@@ -27,6 +27,8 @@ class CustomUser(AbstractUser):
     def get_total_file_size(self):
         return round(sum(file.size for file in File.objects.filter(user=self)) / 1024 / 1024, 2)
 
+    def __str__(self):
+        return self.username
 
 class File(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
@@ -66,13 +68,9 @@ class File(models.Model):
                 logger.error("Ошибка при удалении файла '%s': %s", self.original_name, str(e))
         super().delete(*args, **kwargs)
 
-    # class Meta:
-    #     verbose_name = 'Ингредиент'
-    #     verbose_name_plural = 'Ингредиенты'
-    #     ordering = ('name', 'measurement_unit',)
+    def __str__(self):
+        return f"id файла: {self.id}"
 
-    # name = models.CharField(
-    #     verbose_name='Название',
-    #     max_length=INGREDIENT_NAME_MAX_LEN,
-    #     unique=False
-    # )
+    class Meta:
+        verbose_name = 'Файл'
+        verbose_name_plural = 'Файлы'
